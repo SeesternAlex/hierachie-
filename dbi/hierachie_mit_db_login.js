@@ -12,7 +12,7 @@ var dbConfig = {
   port: parseInt(process.env.DB_PORT) || 5432
 };
 
-// Rest des Codes bleibt unverändert...
+
 async function getRolesFromDb() {
   var client = new Client(dbConfig);
   await client.connect();
