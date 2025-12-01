@@ -27,7 +27,7 @@ mkdir bundesheer-baum
 cd bundesheer-baum  
 nano baum.js  
 
-Füge deinen Code in die Datei `baum.js` ein und speichere sie.
+Füge deinen Code in die Datei `hierachie.js` / `hierachie_mit_db_login.js` ein und speichere sie.
 
 ### 3. Benötigte Pakete installieren
 
