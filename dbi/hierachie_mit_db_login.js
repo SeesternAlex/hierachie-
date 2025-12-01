@@ -1,15 +1,17 @@
 var fs = require("fs");
 var sharp = require("sharp");
 var { Client } = require("pg");
+require('dotenv').config();  // Lädt .env-Variablen ganz oben
 
-// PostgreSQL-Konfiguration direkt im Code
+// PostgreSQL-Konfiguration aus Umgebungsvariablen
 var dbConfig = {
-  user: "postgres",              // <-- dein Benutzer
-  host: "192.168.208.128",       // <-- deine IP
-  database: "hierachie",         // <-- dein DB-Name
-  password: "Lederseit2009",     // <-- dein Passwort
-  port: 5432
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: parseInt(process.env.DB_PORT) || 5432
 };
+
 
 async function getRolesFromDb() {
   var client = new Client(dbConfig);
@@ -48,9 +50,9 @@ function generateSVG(e) {
   e.forEach(setNodeWidths);
 
   function getSubtreeWidth(node) {
-    if (!node.children.length) return node.nodeWidth;
+    if(!node.children.length) return node.nodeWidth;
     var widths = node.children.map(getSubtreeWidth);
-    return widths.reduce((a, b) => a + b, 0) + horizontalSpacing * (node.children.length - 1);
+    return widths.reduce((a, b) => a + b, 0) + horizontalSpacing * (node.children.length -1);
   }
 
   function layout(node, depth, xOffset) {
@@ -64,7 +66,7 @@ function generateSVG(e) {
     var nextOffset = xOffset;
     node.children.forEach(function(child){
       var childWidth = getSubtreeWidth(child);
-      layout(child, depth + 1, nextOffset);
+      layout(child, depth +1, nextOffset);
       nextOffset += childWidth + horizontalSpacing;
     });
   }
