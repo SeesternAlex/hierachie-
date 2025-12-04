@@ -19,6 +19,12 @@ sudo apt install nodejs npm
 node --version  
 npm --version  
 
+## .env extension installieren (falls noch nicht vorhanden)
+npm install dotenv
+
+## env in .env umwandeln (falls noch nicht gemacht)
+mv env .env
+
 
 ### 2. Projektordner erstellen und Skript ablegen
 
